@@ -14,6 +14,7 @@ import Tab from '@mui/material/Tab';
 // Local
 import Portfolio from './components/Resume';
 import SocialFeed from './components/SocialFeed';
+import Develop from './components/Develop';
 
 
 // Fade In/Out Variants
@@ -84,6 +85,7 @@ export default function App({ data }) {
                     <Tabs value={activeTab} onChange={handleTabChange} centered sx={{ mb: 2 }}>
                         <Tab label="Resume" />
                         <Tab label="Updates" />
+                        <Tab label="Developer Options" />
                         {/* <Tab label="Social Media" /> */}
                     </Tabs>
                     <AnimatePresence mode='wait'>
@@ -117,7 +119,7 @@ export default function App({ data }) {
                                 exit="hidden"
                                 variants={fadeInOutVariants}
                             >
-                                Social Media content here.
+                                <Develop/>
                             </motion.div>
                         )}
                     </AnimatePresence>

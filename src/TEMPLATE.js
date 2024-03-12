@@ -14,19 +14,19 @@ import PinterestIcon from '@mui/icons-material/Twitter';
 // Data object that contains all of the data for the template.
 const data = {
     profile: {
-        name: "Sara Friends",
-        address: "C Java Place, Lowell, MA 07646",
+        name: "Truong Van Giap",
+        address: "Pham ngu lao, BMT, VietNam",
         avatar: "https://mui.com/static/images/avatar/1.jpg",
         contacts: [
             { icon: PhoneIcon, label: "Phone", value: "(978) 123-4567" },
-            { icon: EmailIcon, label: "Email", value: "sara_friends@student.uml.edu" },
-            { icon: HomeIcon, label: "Address", value: "123 Main St, City, Country" }
+            { icon: EmailIcon, label: "Email", value: "beovan204@gmail.com" },
+            { icon: HomeIcon, label: "Address", value: "Pham ngu lao, BMT, VietNam" }
         ],
         skills: [
-            { category: "Programming Languages:", skills: "C/C++, Java, Assembly" },
+            { category: "Programming Languages:", skills: "PHP, Laravel, Node.js" },
             { category: "Scripting Languages:", skills: "Bash Shell, HTML" },
-            { category: "Operating Systems:", skills: "Unix/Linux, Mac OSX, Windows XP & Vista" },
-            { category: "Documentation:", skills: "MS Word, Excel, PowerPoint & Visio" },
+            { category: "Operating Systems:", skills: "Linux, Windows 10" },
+            { category: "Documentation:", skills: "MS Word, Excel, PowerPoint" },
         ],
         socialMedia: [
             { icon: FacebookIcon },
@@ -39,16 +39,18 @@ const data = {
         education: [
             {
                 degree: "M.S. in Computer Science",
-                date: "Anticipated May 20xx",
+                date: "Anticipated May 2025",
                 school: "University of Massachusetts Lowell - Lowell, MA",
-                gpa: "Overall GPA: 3.33, GPA in Major: 3.50"
+                gpa: "Overall GPA: 3.33, GPA in Major: 3.50",
+                student: "Placeholder Value"
             },
             {
                 degree: "B.S. in Computer Science",
                 date: "Anticipated May 20xx",
                 school: "University of Massachusetts Lowell - Lowell, MA",
-                gpa: "Overall GPA: 3.33, GPA in Major: 3.50"
-            },
+                gpa: "Overall GPA: 3.33, GPA in Major: 3.50",
+                student: "Placeholder Value"
+            }
         ],
         experience: [
             {
@@ -80,7 +82,7 @@ const data = {
     },
 
     posts: {
-        name: "Sara Friends",
+        name: "Truong Van Giap",
         avatar: "https://mui.com/static/images/avatar/1.jpg",
         background_image: "https://source.unsplash.com/random?wallpapers",
         post_data: [
