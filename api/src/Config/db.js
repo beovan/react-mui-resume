@@ -1,11 +1,14 @@
 'use strict';
-const mysql = require('mysql');
+const MongoClient = require('mongodb').MongoClient;
 
-const db = mysql.createConnection({
-  host: process.env.DB_HOST || "localhost",
-  user: process.env.DB_USER || "root",
-  password: process.env.DB_PASS || "",
-  database: process.env.DB_NAME || "porfolio_nodejs"
-});
+const uri = process.env.MONGODB_URI || "mongodb://localhost:27017";
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
-module.exports = db
+
+
+client.connect(err => {
+  if (err) throw err;
+  // perform actions on the collection object
+  client.close();
+  
+});module.exports = client;

@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
+const MongoClient = require('mongodb').MongoClient;
 require('dotenv').config({path:'/.env'});
 const port = process.env.PORT || 3000;
 
@@ -14,7 +15,15 @@ app.use(function(req, res) {
     res.status(404).send({url: req.originalUrl + ' not found'})
 })
 
-app.listen(port)
+// MongoDB connection string
+const uri = process.env.MONGODB_URI || "mongodb://localhost:27017/mydatabase";
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
-console.log('RESTful API server started on: ' + port)
+client.connect(err => {
+  if (err) throw err;
+  console.log("Connected to MongoDB");
 
+  app.listen(port, () => {
+    console.log('RESTful API server started on: ' + port);
+  });
+});
