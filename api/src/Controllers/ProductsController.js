@@ -2,7 +2,7 @@
 
 const util = require('util')
 const mysql = require('mysql')
-const db = require('../Config/db')
+const db = require('../Config/db.js')
 
 module.exports = {
     get: (req, res) => {
