@@ -54,5 +54,10 @@
   },
   "devDependencies": {
     "nodemon": "^3.1.0"
-  }
+  },
+  "description": "A responsive and dynamic portfolio website, built with React and MUI (formerly Material-UI) v5 for Computer Science students at UMass Lowell. The website is designed to be easily customizable, allowing students to quickly create a portfolio to showcase their skills and experiences.",
+  "main": "server.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }

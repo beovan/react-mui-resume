@@ -1,0 +1,28 @@
+GET  http://localhost:3000/profile
+
+###
+
+GET http://localhost:3000/profile/65f2721a547c43199cc6aa2f
+
+###
+
+POST http://localhost:3000/profile
+Content-Type: application/json 
+
+{
+    "name": "John Doe",
+    "address": "nha buon ma thuot",
+    "age": 30
+}
+###
+DELETE http://localhost:3000/profile/65f2721a547c43199cc6aa2f
+
+###
+PATCH  http://localhost:3000/profile/65f27c8bf4d19bcf96938f5b
+Content-Type: application/json 
+
+{
+    "name": "new name",
+    "address": "nha buon ma thuot",
+    "age": 30
+}
