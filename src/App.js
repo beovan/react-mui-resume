@@ -86,6 +86,8 @@ export default function App({ data }) {
                         <Tab label="Resume" />
                         <Tab label="Updates" />
                         <Tab label="Developer Options" />
+                        <Tab label="Login" />
+
                         {/* <Tab label="Social Media" /> */}
                     </Tabs>
                     <AnimatePresence mode='wait'>
@@ -120,6 +122,17 @@ export default function App({ data }) {
                                 variants={fadeInOutVariants}
                             >
                                 <Develop/>
+                            </motion.div>
+                        )}
+                           {activeTab === 3 && (
+                            <motion.div
+                                key="socialMedia"
+                                initial="hidden"
+                                animate="visible"
+                                exit="hidden"
+                                variants={fadeInOutVariants}
+                            >
+                                Hello
                             </motion.div>
                         )}
                     </AnimatePresence>

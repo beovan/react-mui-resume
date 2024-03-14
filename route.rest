@@ -2,7 +2,7 @@ GET  http://localhost:3000/profile
 
 ###
 
-GET http://localhost:3000/profile/65f2721a547c43199cc6aa2f
+GET http://localhost:3000/profile/65f28664d7be2f3bcbeed936
 
 ###
 
@@ -10,7 +10,7 @@ POST http://localhost:3000/profile
 Content-Type: application/json 
 
 {
-    "name": "John Doe",
+    "name": "Giap",
     "address": "nha buon ma thuot",
     "age": 30
 }
