@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const Profile = require("../../models/Profile");
+const Profile = require("../../models/profile");
 
 //Getting all
 router.get("/", async (req, res) => {
@@ -43,7 +43,7 @@ router.patch("/:id",getProfile , async (req, res) => {
     }
     catch(err){
         res.status(400).json({message: err.message})
-    
+
     }
 });
 //Deleting one

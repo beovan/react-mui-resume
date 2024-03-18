@@ -15,6 +15,7 @@ import Tab from '@mui/material/Tab';
 import Portfolio from './components/Resume';
 import SocialFeed from './components/SocialFeed';
 import Develop from './components/Develop';
+import ProfileForm from './components/Profile/Profile';
 
 
 // Fade In/Out Variants
@@ -86,7 +87,7 @@ export default function App({ data }) {
                         <Tab label="Resume" />
                         <Tab label="Updates" />
                         <Tab label="Developer Options" />
-                        <Tab label="Login" />
+                        <Tab label="Edit CV" />
 
                         {/* <Tab label="Social Media" /> */}
                     </Tabs>
@@ -132,7 +133,7 @@ export default function App({ data }) {
                                 exit="hidden"
                                 variants={fadeInOutVariants}
                             >
-                                Hello
+                                <ProfileForm/>
                             </motion.div>
                         )}
                     </AnimatePresence>
