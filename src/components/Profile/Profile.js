@@ -1,6 +1,16 @@
-import { TextField, Button, Grid, Box } from "@mui/material";
+import {
+  TextField,
+  Button,
+  Grid,
+  Box,
+  Card,
+  CardContent,
+  Typography,
+} from "@mui/material";
 import axios from "axios";
 import { useState, useEffect } from "react";
+// import ChipInput from "material-ui-chip-input";
+// import Input from '@mui/material/Input';
 
 function ProfileForm() {
   const [data, setData] = useState({});
@@ -19,67 +29,45 @@ function ProfileForm() {
       });
   }, []);
 
-  // Create
-  const createProfile = (newProfile) => {
-    axios
-      .post(URL, newProfile)
-      .then((response) => {
-        // Handle response
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+  const [isShortDisplay, setIsShortDisplay] = useState(true);
+  //update
 
-  // Update
-  const updateProfile = (updatedProfile) => {
-    axios
-      .put(`${URL}/${updatedProfile.id}`, updatedProfile)
-      .then((response) => {
-        // Handle response
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
-  // Delete
-  const deleteProfile = (profileId) => {
-    axios
-      .delete(`${URL}/${profileId}`)
-      .then((response) => {
-        // Handle response
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
-  //form
-  const [formValues, setFormValues] = useState({
-    name: data.name || '',
-    address: data.address || '',
-    avatar: data.avatar || '',
-    contacts: data.contacts || '',
+  const [formData, setFormData] = useState({
+    name: "",
+    address: "",
+    skills: [],
+    education: [],
+    experience: [],
   });
 
-  const handleInputChange = (event) => {
-    setFormValues({
-      ...formValues,
+  const handleTextFieldChange = (event) => {
+    
+    setFormData({
+      ...formData,
       [event.target.name]: event.target.value,
+      [event.target.address]: event.target.value,
+      [event.target.skills]: event.target.value,
+      [event.target.education]: event.target.value,
+      [event.target.experience]: event.target.value,
     });
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const updateData = () => {
+    const newData = { ...data };
 
-    const profileId = "65f27c8bf4d19bcf96938f5b"; // Replace with your profile ID
-    const URL = `http://localhost:3000/Profiles/${profileId}`;
+    const firstKey = Object.keys(newData)[0];
+
+    newData[firstKey].name = formData.name;
+    newData[firstKey].address = formData.address;
+    newData[firstKey].skills = formData.skills;
+    newData[firstKey].education = formData.education;
+    newData[firstKey].experience = formData.experience;
 
     axios
-      .put(URL, formValues)
+      .put(`${URL}/${firstKey}`, newData[firstKey])
       .then((response) => {
-        // Handle response
+        console.log(response.data);
+        setData(newData); // Update the state with the new data
       })
       .catch((error) => {
         console.log(error);
@@ -88,15 +76,63 @@ function ProfileForm() {
 
   return (
     <div>
-   <form onSubmit={handleSubmit}>
+      {Object.keys(data).map((key, index) => (
+        <Card key={index} sx={{ margin: 2 }}>
+          <CardContent>
+            <Typography variant="h5" component="div">
+              {key}
+            </Typography>
+            {isShortDisplay && <Typography>{data[key].name}</Typography>}
+            {!isShortDisplay &&
+              Object.entries(data[key]).map(([subKey, subValue], subIndex) => (
+                <Typography
+                  key={subIndex}
+                >{`${subKey}: ${subValue}`}</Typography>
+              ))}
+          </CardContent>
+        </Card>
+      ))}
+
+      <Button
+        variant="contained"
+        onClick={() => setIsShortDisplay(!isShortDisplay)}
+      >
+        {isShortDisplay ? "Show more" : "Show less"}
+      </Button>
+      {/* Update */}
+      <TextField
+        name="name"
+        label="Name"
+        value={formData.name}
+        onChange={handleTextFieldChange}
+        fullWidth
+      />
+
+      <TextField
+        name="address"
+        label="Address"
+        value={formData.address}
+        onChange={handleTextFieldChange}
+        fullWidth
+      />
+
+      <TextField  label="skills" name="skills" onChange={handleTextFieldChange} />
+      <TextField  label="education" name="education" onChange={handleTextFieldChange} />
+      <TextField  label="experience" name="experience" onChange={handleTextFieldChange} />
+
+      <Button variant="contained" onClick={updateData}>
+        Update
+      </Button>
+      {/* Create  */}
+      {/* <form>
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <Box p={1}>
               <TextField
                 name="name"
                 label="Name"
-                value={formValues.name}
-                onChange={handleInputChange}
+                // value={formValues.name}
+                // onChange={handleInputChange}
                 fullWidth
               />{" "}
             </Box>
@@ -130,7 +166,7 @@ function ProfileForm() {
         <Button variant="contained" type="submit">
           Submit
         </Button>
-      </form>
+      </form> */}
     </div>
   );
 }
