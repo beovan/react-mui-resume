@@ -9,6 +9,9 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css"; // import the styles
+
 // import ChipInput from "material-ui-chip-input";
 // import Input from '@mui/material/Input';
 
@@ -32,26 +35,34 @@ function ProfileForm() {
   const [isShortDisplay, setIsShortDisplay] = useState(true);
   //update
 
+  
   const [formData, setFormData] = useState({
     name: "",
+    phoneNumber: "",
+    avater: "",
     address: "",
-    skills: [],
-    education: [],
-    experience: [],
+    skills: "",
+    education: "",
+    experience: "",
   });
-
+  //text
   const handleTextFieldChange = (event) => {
-    
     setFormData({
       ...formData,
       [event.target.name]: event.target.value,
       [event.target.address]: event.target.value,
-      [event.target.skills]: event.target.value,
-      [event.target.education]: event.target.value,
-      [event.target.experience]: event.target.value,
+      [event.target.phoneNumber]: event.target.value,
+      [event.target.avater]: event.target.value,
+    });
+    console.log(event.target.value);
+  };
+  //content editor
+  const handleEditorChange = (name, content) => {
+    setFormData({
+      ...formData,
+      [name]: content,
     });
   };
-
   const updateData = () => {
     const newData = { ...data };
 
@@ -59,12 +70,17 @@ function ProfileForm() {
 
     newData[firstKey].name = formData.name;
     newData[firstKey].address = formData.address;
+    newData[firstKey].phoneNumber = formData.phoneNumber;
+    newData[firstKey].avater = formData.avater;
     newData[firstKey].skills = formData.skills;
     newData[firstKey].education = formData.education;
     newData[firstKey].experience = formData.experience;
 
+    console.log(formData.avater);
+
+    const id = newData[firstKey]._id;
     axios
-      .put(`${URL}/${firstKey}`, newData[firstKey])
+      .patch(`${URL}/${id}`, newData[firstKey])
       .then((response) => {
         console.log(response.data);
         setData(newData); // Update the state with the new data
@@ -74,9 +90,12 @@ function ProfileForm() {
       });
   };
 
+  
   return (
-    <div>
-      {Object.keys(data).map((key, index) => (
+    <Box >
+      <Grid container spacing={2}>
+        <Grid item xs={12}> 
+        {Object.keys(data).map((key, index) => (
         <Card key={index} sx={{ margin: 2 }}>
           <CardContent>
             <Typography variant="h5" component="div">
@@ -87,20 +106,24 @@ function ProfileForm() {
               Object.entries(data[key]).map(([subKey, subValue], subIndex) => (
                 <Typography
                   key={subIndex}
-                >{`${subKey}: ${subValue}`}</Typography>
+                >{`${subValue}`}</Typography>
               ))}
           </CardContent>
         </Card>
       ))}
-
+      <br />
       <Button
         variant="contained"
         onClick={() => setIsShortDisplay(!isShortDisplay)}
       >
         {isShortDisplay ? "Show more" : "Show less"}
       </Button>
-      {/* Update */}
-      <TextField
+        </Grid>
+      
+      <Grid item xs={12}>
+      <>
+        <Typography variant="h5">Update Profile</Typography>
+        <TextField
         name="name"
         label="Name"
         value={formData.name}
@@ -115,14 +138,49 @@ function ProfileForm() {
         onChange={handleTextFieldChange}
         fullWidth
       />
+        <TextField
+        name="phoneNumber"
+        label="Phone Number"
+        value={formData.phoneNumber}
+        onChange={handleTextFieldChange}
+        fullWidth
+      />
+         <TextField
+        name="avater"
+        label="Avater"
+        value={formData.avater}
+        onChange={handleTextFieldChange}
+        fullWidth
+      />
+      <Typography> Skills</Typography>
+      <ReactQuill
+        value={formData.skills}
+        onChange={(content) => handleEditorChange("skills", content)}
+      />
+      <Typography> Education</Typography>
 
-      <TextField  label="skills" name="skills" onChange={handleTextFieldChange} />
-      <TextField  label="education" name="education" onChange={handleTextFieldChange} />
-      <TextField  label="experience" name="experience" onChange={handleTextFieldChange} />
+      <ReactQuill
+        value={formData.education}
+        onChange={(content) => handleEditorChange("education", content)}
+      />
+      <Typography> Experience</Typography>
+
+      <ReactQuill
+        value={formData.experience}
+        onChange={(content) => handleEditorChange("experience", content)}
+      />
 
       <Button variant="contained" onClick={updateData}>
         Update
       </Button>
+
+      </>
+      </Grid>
+     
+      </Grid>
+     
+      {/* Update */}
+    
       {/* Create  */}
       {/* <form>
         <Grid container spacing={2}>
@@ -167,7 +225,7 @@ function ProfileForm() {
           Submit
         </Button>
       </form> */}
-    </div>
+    </Box>
   );
 }
 

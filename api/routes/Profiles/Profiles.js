@@ -17,10 +17,15 @@ router.get("/:id", getProfile, (req, res) => {
 });
 //Creating one
 router.post("/", async (req, res) => {
-  const profile = new Profile({
-    name: req.body.name,
-    address: req.body.address,
-  });
+ const profile = new Profile({
+  name: req.body.name,
+  address: req.body.address,
+  phoneNumber: req.body.phoneNumber,
+  avatar: req.body.avatar,
+  skills: req.body.skills,
+  education: req.body.education,
+  experience: req.body.experience,
+});
 
   try {
     const newProfile = await profile.save();
@@ -30,21 +35,34 @@ router.post("/", async (req, res) => {
   }
 });
 //Updating one
-router.patch("/:id",getProfile , async (req, res) => {
+router.patch("/:id", getProfile, async (req, res) => {
+  if(req.body.avatar != null){
+    res.profile.avatar = req.body.avatar;
+  }
+  if(req.body.phoneNumber != null){
+    res.profile.phoneNumber = req.body.phoneNumber;
+  }
   if (req.body.name != null) {
     res.profile.name = req.body.name;
   }
-    if (req.body.address != null) {
-        res.profile.address = req.body.address;
-    }
-    try{
-        const updatedProfile = await res.profile.save()
-        res.json(updatedProfile)
-    }
-    catch(err){
-        res.status(400).json({message: err.message})
-
-    }
+  if (req.body.address != null) {
+    res.profile.address = req.body.address;
+  }
+  if (req.body.skills != null) {
+    res.profile.skills = req.body.skills;
+  }
+  if (req.body.education != null) {
+    res.profile.education = req.body.education;
+  }
+  if (req.body.experience != null) {
+    res.profile.experience = req.body.experience;
+  }
+  try {
+    const updatedProfile = await res.profile.save();
+    res.json(updatedProfile);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
 });
 //Deleting one
 router.delete("/:id",getProfile,async (req, res) => {

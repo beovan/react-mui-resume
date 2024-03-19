@@ -10,6 +10,10 @@ const profileSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    phoneNumber: {
+        type: String,
+        required: true
+    },
     avatar: {
         type: String,
     },
@@ -18,17 +22,17 @@ const profileSchema = new mongoose.Schema({
         of: String
     },
     skills: {
-        type: [String],
+        type: String,
     },
     socialMedia: {
         type: Map,
         of: String
     },
     education: {
-        type: [String],
+        type: String,
     },
     experience: {
-        type: [String],
+        type: String,
     },
     age: {
         type: Number
