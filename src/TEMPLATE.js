@@ -10,11 +10,23 @@ import TwitterIcon from '@mui/icons-material/Twitter';
 import SnapchatIcon from '@mui/icons-material/Twitter';
 import PinterestIcon from '@mui/icons-material/Twitter';
 
+// Axios
+import axios from 'axios';
 
-// Data object that contains all of the data for the template.
+async function fetchData() {
+  try {
+    const response = await axios.get('http://localhost:3000/Profiles');
+    const data = response.data;
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+
 const data = {
     profile: {
-        name: "Truong Van Giap",
+        name:"Truong Van Giap",
         address: "Pham ngu lao, BMT, VietNam",
         avatar: "https://mui.com/static/images/avatar/1.jpg",
         contacts: [
@@ -122,5 +134,19 @@ const data = {
     }
 };
 
+fetchData().then(fetchedData => {
+    const firstItem = fetchedData[0];
+    data.profile.name = firstItem.name;
+    data.profile.address = firstItem.address;
+    const phoneContact = data.profile.contacts.find(contact => contact.label === 'Phone');
+    if (phoneContact) {
+        phoneContact.value = firstItem.phoneNumber;
+    }
+    const addressContact = data.profile.contacts.find(contact => contact.label === 'Address');
+    if (addressContact) {
+        addressContact.value = firstItem.address;
+    }
+    console.log(data); // This will log the updated data object.
+});
 // Exporting the data object so that the App.js file can import it.
 export default data;
