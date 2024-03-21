@@ -13,8 +13,7 @@ import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import { TextField, Button } from '@mui/material';
-
+import { TextField, Button } from "@mui/material";
 
 // Local
 import ResumeCard from "./ResumeCard";
@@ -22,23 +21,28 @@ import { ButtonVisibilityContext } from "./Develop";
 // ResumePortfolio: A React component that displays a resume/portfolio.
 export default function ResumePortfolio({ profile }) {
   const contentToPrint = useRef(null);
-
+  //print
   const handlePrint = useReactToPrint({
     documentTitle: "Print This Document",
     onBeforePrint: () => console.log("before printing..."),
     onAfterPrint: () => console.log("after printing..."),
     removeAfterPrint: true,
   });
+
+  //isButtonVisible
+  const isButtonVisible = localStorage.getItem("isButtonVisible") === "true";
+
   return (
     <Box>
-      
-          <button
-            onClick={() => {
-              handlePrint(null, () => contentToPrint.current);
-            }}
-          >
-            PRINT
-          </button>
+      {isButtonVisible && (
+        <Button variant="contained" color="success"
+          onClick={() => {
+            handlePrint(null, () => contentToPrint.current);
+          }}
+        >
+          PRINT
+        </Button>
+      )}
       <Grid container spacing={2} ref={contentToPrint}>
         {/* Left Column */}
         <Grid item xs={12} md={4}>

@@ -1,5 +1,5 @@
 //React
-import { Box } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import React, { useState, useEffect } from "react";
 
 //Axios
@@ -25,12 +25,11 @@ const Develop = () => {
       <ButtonVisibilityContext.Provider
         value={{ isButtonVisible, setButtonVisibility }}
       >
-        <div>Hello Again</div>
-        {isButtonVisible && <button>Button</button>}
-        <button onClick={() => setButtonVisibility(!isButtonVisible)}>
-          Toggle Button
-        </button>
-        <button onClick={removeButton}>Hide Button</button>
+        <div>Display print</div>
+        {isButtonVisible && <Button variant="contained" color="success">Button</Button>}
+        <Button variant="contained" onClick={() => setButtonVisibility(!isButtonVisible)}>
+          Turn on/off Button
+        </Button>
       </ButtonVisibilityContext.Provider>
     </Box>
   );

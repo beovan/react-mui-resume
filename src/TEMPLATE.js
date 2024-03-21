@@ -12,6 +12,9 @@ import PinterestIcon from '@mui/icons-material/Twitter';
 
 // Axios
 import axios from 'axios';
+import  parse  from 'html-react-parser';
+
+//changing the fetched data to html
 
 async function fetchData() {
   try {
@@ -135,17 +138,33 @@ const data = {
 };
 
 fetchData().then(fetchedData => {
+    //Updating fist item of the fetched data to the data object.
     const firstItem = fetchedData[0];
     data.profile.name = firstItem.name;
     data.profile.address = firstItem.address;
+    //Replacing the existing values with the first item from the fetched data.
     const phoneContact = data.profile.contacts.find(contact => contact.label === 'Phone');
+    const addressContact = data.profile.contacts.find(contact => contact.label === 'Address');
+    const skills = data.profile.skills.find(skill => skill.category === 'Programming Languages:');
+    const education = data.profile.education.find(education => education.degree === 'M.S. in Computer Science');
+    const experience = data.profile.experience.find(experience => experience.title === 'Front End Developer / w3schools.com');
+
     if (phoneContact) {
         phoneContact.value = firstItem.phoneNumber;
     }
-    const addressContact = data.profile.contacts.find(contact => contact.label === 'Address');
     if (addressContact) {
         addressContact.value = firstItem.address;
     }
+  if (skills) {
+    skills.skills = parse(String(firstItem.skills));
+}
+if (education) {
+    education.school = parse(String(firstItem.education));
+}
+if (experience) {
+    experience.description = parse(String(firstItem.experience));
+}
+    
     console.log(data); // This will log the updated data object.
 });
 // Exporting the data object so that the App.js file can import it.
